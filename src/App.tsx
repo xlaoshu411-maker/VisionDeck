@@ -3,7 +3,6 @@ import {
   StatCard,
   SalesChart,
   StatBreakdown,
-  TrafficSource,
   RecentOrders,
 } from '@modules/dashboard'
 import { Skeleton } from '@shared/components/Skeleton'
@@ -78,13 +77,9 @@ export default function App() {
 
       <ErrorBoundary module="SecondarySection">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <TrafficSource />
+          <ChinaMap />
           <RecentOrders />
         </div>
-      </ErrorBoundary>
-
-      <ErrorBoundary module="ChinaMap">
-        <ChinaMap />
       </ErrorBoundary>
     </div>
   )
