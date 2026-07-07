@@ -35,7 +35,7 @@ export function RecentOrders() {
   useEffect(() => {
     const timer = setInterval(() => {
       setFeaturedIdx(prev => (prev + 1) % allOrders.length)
-    }, 3500)
+    }, 1500)
     return () => clearInterval(timer)
   }, [])
 
@@ -46,7 +46,7 @@ export function RecentOrders() {
     let pos = 0
     function step() {
       if (!el) return
-      pos += 0.55
+      pos += 0.8
       if (pos >= el.scrollHeight / 2) pos = 0
       el.scrollTop = pos
       id = requestAnimationFrame(step)

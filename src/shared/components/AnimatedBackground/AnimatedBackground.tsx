@@ -1,78 +1,120 @@
 /**
- * 动态网格背景 — 深色科技感点阵
+ * 星空背景 — CSS 伪随机星点 + 流星
  *
- * CSS 驱动的无限循环动画，GPU 加速，
- * 不影响页面内容交互。
+ * 使用多层 box-shadow 生成数百颗星星，GPU 友好。
+ * 三层星场以不同速度微动，模拟深度视差。
  */
 export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
-      {/* 网格线 */}
+      {/* 底色渐变 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900" />
+
+      {/* 星场层 1 — 远星（小而密） */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 animate-stars-slow"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(148,163,184,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(148,163,184,0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 70%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 70%)',
+          boxShadow: stars1,
+          opacity: 0.6,
         }}
       />
 
-      {/* 浮动光斑 1 — 左上 */}
+      {/* 星场层 2 — 中星 */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[120px] animate-pulse-glow"
+        className="absolute inset-0 animate-stars-mid"
         style={{
-          top: '-10%',
-          left: '-5%',
-          background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)',
-          animation: 'floatOrb1 20s ease-in-out infinite',
+          boxShadow: stars2,
+          opacity: 0.5,
         }}
       />
 
-      {/* 浮动光斑 2 — 右下 */}
+      {/* 星场层 3 — 近星（大而亮，闪烁） */}
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[120px] animate-pulse-glow"
+        className="absolute inset-0 animate-stars-fast"
         style={{
-          bottom: '-10%',
-          right: '-5%',
-          background: 'radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%)',
-          animation: 'floatOrb2 25s ease-in-out infinite',
+          boxShadow: stars3,
+          opacity: 0.7,
+          animation: 'twinkle 3s ease-in-out infinite alternate',
         }}
       />
 
-      {/* 浮动光斑 3 — 中部 */}
-      <div
-        className="absolute w-[400px] h-[400px] rounded-full blur-[100px]"
-        style={{
-          top: '40%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(245,158,11,0.04) 0%, transparent 70%)',
-          animation: 'floatOrb3 18s ease-in-out infinite',
-        }}
-      />
+      {/* 星云光斑 — 很淡的装饰 */}
+      <div className="absolute top-[15%] left-[20%] w-[500px] h-[300px] rounded-full blur-[150px]"
+        style={{ background: 'radial-gradient(ellipse, rgba(34,211,238,0.03) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[250px] rounded-full blur-[130px]"
+        style={{ background: 'radial-gradient(ellipse, rgba(167,139,250,0.03) 0%, transparent 70%)' }} />
 
-      <style>{animations}</style>
+      {/* 流星 — 偶尔划过 */}
+      <div className="absolute w-[2px] h-[80px] bg-gradient-to-b from-white/40 to-transparent rounded-full"
+        style={{
+          top: '8%', left: '60%',
+          transform: 'rotate(-30deg)',
+          animation: 'shooting 8s linear infinite',
+          animationDelay: '3s',
+        }} />
+      <div className="absolute w-[1px] h-[60px] bg-gradient-to-b from-white/30 to-transparent rounded-full"
+        style={{
+          top: '15%', left: '25%',
+          transform: 'rotate(-25deg)',
+          animation: 'shooting 10s linear infinite',
+          animationDelay: '7s',
+        }} />
+
+      <style>{keyframes}</style>
     </div>
   )
 }
 
-const animations = `
-  @keyframes floatOrb1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33%      { transform: translate(60px, 40px) scale(1.1); }
-    66%      { transform: translate(-20px, -30px) scale(0.95); }
+/** 三层不同密度的星点（box-shadow 值），避免 DOM 爆炸 */
+const stars1 = generateStars(120, 1)
+const stars2 = generateStars(60, 1.5)
+const stars3 = generateStars(30, 2)
+
+function generateStars(count: number, size: number): string {
+  const shadows: string[] = []
+  for (let i = 0; i < count; i++) {
+    const x = Math.floor(Math.random() * 2000)
+    const y = Math.floor(Math.random() * 2000)
+    shadows.push(`${x}px ${y}px ${size}px rgba(255,255,255,0.8)`)
   }
-  @keyframes floatOrb2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33%      { transform: translate(-50px, -30px) scale(1.15); }
-    66%      { transform: translate(30px, 20px) scale(0.9); }
+  return shadows.join(',')
+}
+
+const keyframes = `
+  @keyframes twinkle {
+    0%   { opacity: 0.4; }
+    100% { opacity: 0.85; }
   }
-  @keyframes floatOrb3 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50%      { transform: translate(-50%, -60%) scale(1.2); }
+
+  @keyframes stars-slow {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(0, -20px); }
+  }
+
+  @keyframes stars-mid {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-5px, -12px); }
+  }
+
+  @keyframes stars-fast {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(3px, -8px); }
+  }
+
+  @keyframes shooting {
+    0%   { opacity: 0; transform: rotate(-30deg) translateX(0); }
+    5%   { opacity: 1; }
+    10%  { opacity: 0; transform: rotate(-30deg) translateX(800px); }
+    100% { opacity: 0; transform: rotate(-30deg) translateX(800px); }
+  }
+
+  .animate-stars-slow {
+    animation: stars-slow 120s linear infinite;
+  }
+  .animate-stars-mid {
+    animation: stars-mid 80s linear infinite;
+  }
+  .animate-stars-fast {
+    animation: stars-fast 50s linear infinite;
   }
 `
