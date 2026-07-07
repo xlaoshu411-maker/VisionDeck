@@ -3,7 +3,6 @@ import {
   SalesFunnel,
   TopProducts,
   RevenueTrend,
-  RegionalMap,
 } from '@modules/sales'
 import { Skeleton } from '@shared/components/Skeleton'
 import { PageHeader } from '@shared/components/PageHeader'
@@ -88,7 +87,6 @@ export default function SalesPage() {
         <TopProducts products={overview.topProducts} />
       </div>
 
-      <RegionalMap height={200} />
     </div>
   )
 }

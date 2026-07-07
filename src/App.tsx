@@ -9,6 +9,7 @@ import {
 import { Skeleton } from '@shared/components/Skeleton'
 import { ErrorBoundary } from '@shared/components/ErrorBoundary'
 import { PageHeader } from '@shared/components/PageHeader'
+import { ChinaMap } from '@shared/components/ChinaMap'
 
 export default function App() {
   const { overview, stats, loading, error, refresh } = useDashboardData()
@@ -80,6 +81,10 @@ export default function App() {
           <TrafficSource />
           <RecentOrders />
         </div>
+      </ErrorBoundary>
+
+      <ErrorBoundary module="ChinaMap">
+        <ChinaMap />
       </ErrorBoundary>
     </div>
   )

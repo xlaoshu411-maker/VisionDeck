@@ -1,0 +1,1 @@
+export { ChinaMap } from './ChinaMap'
