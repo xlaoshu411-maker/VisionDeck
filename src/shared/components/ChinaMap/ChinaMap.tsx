@@ -146,7 +146,7 @@ export function ChinaMap() {
   }, [])
 
   return (
-    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4 relative overflow-hidden">
+    <AnimatedCard className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-4 relative overflow-hidden">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-slate-300 text-sm font-semibold">区域销售分布</h3>
         <div className="flex items-center gap-3 text-[10px] text-slate-500">

@@ -63,7 +63,7 @@ export function RecentOrders() {
 
   return (
     <div style={{ height: 400 }}>
-    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3 flex flex-col h-full">
+    <AnimatedCard className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-3 flex flex-col h-full">
       <div className="flex items-center justify-between mb-2 shrink-0">
         <h3 className="text-slate-300 text-xs font-semibold">最近订单</h3>
         <div className="flex items-center gap-1.5">
@@ -73,7 +73,7 @@ export function RecentOrders() {
       </div>
 
       {/* 置顶高亮 */}
-      <div className="mb-2 p-2 rounded-lg bg-white/[0.05] backdrop-blur-sm border border-white/[0.06] shrink-0 transition-all duration-500">
+      <div className="mb-2 p-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/15 shrink-0 transition-all duration-500">
         <div className="flex items-center justify-between mb-0.5">
           <span className="text-[9px] text-cyan-400 font-semibold">🔔 最新大单</span>
           <span className="text-[9px] text-slate-500">{featured.time}</span>

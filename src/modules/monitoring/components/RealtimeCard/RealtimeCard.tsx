@@ -18,7 +18,7 @@ export function RealtimeCard({ item, index }: RealtimeCardProps) {
   const changeSign = item.changeRate >= 0 ? '+' : ''
 
   return (
-    <AnimatedCard index={index} className="relative overflow-hidden rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3 hover:border-slate-700/60 transition-colors duration-300">
+    <AnimatedCard index={index} className="relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-3 hover:border-slate-700/60 transition-colors duration-300">
       <div className="absolute top-2 right-2 flex items-center gap-1">
         <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} animate-pulse-glow`} />
         <span className="text-[9px] text-slate-500">{item.status === 'normal' ? '正常' : item.status === 'warning' ? '告警' : '异常'}</span>

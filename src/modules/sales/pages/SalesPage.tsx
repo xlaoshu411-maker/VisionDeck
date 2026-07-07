@@ -65,7 +65,7 @@ export default function SalesPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {kpis.map((kp, i) => (
-          <AnimatedCard key={kp.label} index={i} className="relative rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3 overflow-hidden group">
+          <AnimatedCard key={kp.label} index={i} className="relative rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-3 overflow-hidden group">
             <div className="absolute -top-3 -right-3 w-16 h-16 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{ background: `radial-gradient(circle, ${kp.color === 'cyan' ? 'rgba(34,211,238,0.12)' : kp.color === 'violet' ? 'rgba(167,139,250,0.12)' : kp.color === 'emerald' ? 'rgba(52,211,153,0.12)' : 'rgba(245,158,11,0.12)'} 0%, transparent 70%)` }}
             />

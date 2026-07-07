@@ -34,7 +34,7 @@ const typeColors: Record<TimelineEvent['type'], string> = {
 
 export function EventTimeline() {
   return (
-    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4">
+    <AnimatedCard className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-4">
       <h3 className="text-slate-300 text-sm font-semibold mb-3">运维事件</h3>
       <div className="relative">
         <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-slate-700 via-slate-700/50 to-transparent" />

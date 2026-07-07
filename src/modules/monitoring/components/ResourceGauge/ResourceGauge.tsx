@@ -45,7 +45,7 @@ function RingGauge({ item }: { item: GaugeItem }) {
 
 export function ResourceGauge() {
   return (
-    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4 relative overflow-hidden">
+    <AnimatedCard className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-4 relative overflow-hidden">
       <h3 className="text-slate-300 text-sm font-semibold mb-3">资源负载</h3>
       <div className="grid grid-cols-4 gap-1">
         {gauges.map(g => (

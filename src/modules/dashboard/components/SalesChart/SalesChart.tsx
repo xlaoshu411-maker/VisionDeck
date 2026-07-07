@@ -100,7 +100,7 @@ export function SalesChart({ data, height = 360 }: SalesChartProps) {
   }, [])
 
   return (
-    <div className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-6">
+    <div className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-6">
       <h3 className="text-slate-300 text-base font-semibold mb-4">销售趋势</h3>
       <div ref={chartRef} style={{ width: '100%', height }} />
     </div>

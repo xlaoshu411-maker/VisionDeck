@@ -32,7 +32,7 @@ export function Skeleton({ variant = 'card', lines = 3, className = '' }: Skelet
 
   if (variant === 'chart') {
     return (
-      <div className={`rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4 ${className}`}>
+      <div className={`rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-4 ${className}`}>
         <SkeletonBar className="h-4 w-24 mb-3" />
         <div className="flex items-end gap-3 h-32">
           {Array.from({ length: 7 }).map((_, i) => (
@@ -44,7 +44,7 @@ export function Skeleton({ variant = 'card', lines = 3, className = '' }: Skelet
   }
 
   return (
-    <div className={`rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3 ${className}`}>
+    <div className={`rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-3 ${className}`}>
       <div className="flex items-center justify-between mb-2">
         <SkeletonBar className="h-3 w-12" />
         <SkeletonBar className="h-3 w-8" />

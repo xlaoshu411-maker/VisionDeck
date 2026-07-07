@@ -47,7 +47,7 @@ export function TopProducts({ products }: TopProductsProps) {
   const maxSales = Math.max(...products.map(p => p.sales))
 
   return (
-    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4">
+    <AnimatedCard className="rounded-xl bg-white/10 backdrop-blur-2xl border border-white/15 p-4">
       <h3 className="text-slate-300 text-sm font-semibold mb-3">热销排行</h3>
       <ul className="space-y-2.5">
         {products.map(p => (

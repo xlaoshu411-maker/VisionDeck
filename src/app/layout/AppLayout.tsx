@@ -17,7 +17,7 @@ export function AppLayout() {
       <AnimatedBackground />
 
       {/* 侧边导航 */}
-      <aside className="w-48 shrink-0 border-r border-white/[0.05] bg-black/20 backdrop-blur-xl flex flex-col relative z-10">
+      <aside className="w-48 shrink-0 border-r border-white/15 bg-black/35 backdrop-blur-2xl flex flex-col relative z-10">
         {/* Logo 区域 */}
         <div className="h-12 flex items-center px-4 border-b border-white/[0.05]">
           <div className="flex items-center gap-2">
@@ -43,8 +43,8 @@ export function AppLayout() {
                 className={() =>
                   `flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-all duration-200 group ${
                     isActive
-                      ? 'bg-white/[0.08] backdrop-blur-md text-white shadow-sm border border-white/[0.08]'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04] border border-transparent'
+                      ? 'bg-white/15 backdrop-blur-md text-white shadow-sm border border-white/15'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/10 border border-transparent'
                   }`
                 }
               >
