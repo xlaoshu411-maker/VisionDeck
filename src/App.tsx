@@ -24,9 +24,8 @@ export default function App() {
           <div className="lg:col-span-2"><Skeleton variant="chart" /></div>
           <Skeleton variant="card" />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <Skeleton variant="card" /><Skeleton variant="card" />
-        </div>
+        <Skeleton variant="chart" />
+        <Skeleton variant="card" />
       </div>
     )
   }
@@ -75,11 +74,12 @@ export default function App() {
         </div>
       </ErrorBoundary>
 
-      <ErrorBoundary module="SecondarySection">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <ChinaMap />
-          <RecentOrders />
-        </div>
+      <ErrorBoundary module="MapSection">
+        <ChinaMap />
+      </ErrorBoundary>
+
+      <ErrorBoundary module="OrdersSection">
+        <RecentOrders />
       </ErrorBoundary>
     </div>
   )

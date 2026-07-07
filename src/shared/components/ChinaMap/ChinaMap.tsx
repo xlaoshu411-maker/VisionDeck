@@ -36,18 +36,26 @@ export function ChinaMap() {
   const hasGeoRef = useRef(false)
 
   useEffect(() => {
-    fetch('/china.json')
-      .then(r => r.json())
-      .then(geo => {
-        echarts.registerMap('china', geo as never)
-        hasGeoRef.current = true
-        setReady(true)
-      })
-      .catch(() => {
-        console.warn('[ChinaMap] GeoJSON load failed, falling back to scatter only')
-        hasGeoRef.current = false
-        setReady(true)
-      })
+    // 优先 DataV CDN（标准省份地图），降级到本地精简版
+    const urls = [
+      'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',
+      '/china.json',
+    ]
+    async function loadGeo() {
+      for (const url of urls) {
+        try {
+          const res = await fetch(url)
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const geo = await res.json()
+          echarts.registerMap('china', geo as never)
+          hasGeoRef.current = true
+          return
+        } catch { /* try next */ }
+      }
+      console.warn('[ChinaMap] All GeoJSON sources failed')
+      hasGeoRef.current = false
+    }
+    loadGeo().finally(() => setReady(true))
   }, [])
 
   useEffect(() => {
