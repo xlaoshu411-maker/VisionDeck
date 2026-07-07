@@ -1,0 +1,72 @@
+/**
+ * 资源仪表盘 — SVG 环形仪表
+ */
+import { AnimatedCard } from '@shared/components/AnimatedCard'
+
+interface GaugeItem {
+  label: string
+  value: number
+  max: number
+  unit: string
+  color: string
+  icon: string
+}
+
+const gauges: GaugeItem[] = [
+  { label: 'API 网关', value: 87, max: 100, unit: '%', color: '#34d399', icon: '🔌' },
+  { label: '数据库', value: 62, max: 100, unit: '%', color: '#22d3ee', icon: '🗄️' },
+  { label: '缓存命中', value: 94, max: 100, unit: '%', color: '#a78bfa', icon: '⚡' },
+  { label: '消息队列', value: 45, max: 100, unit: '%', color: '#f59e0b', icon: '📨' },
+]
+
+function RingGauge({ item }: { item: GaugeItem }) {
+  const r = 36
+  const c = 2 * Math.PI * r
+  const pct = item.value / item.max
+  const offset = c * (1 - pct)
+
+  return (
+    <div className="flex flex-col items-center group">
+      <div className="relative w-24 h-24 mb-2">
+        <svg viewBox="0 0 88 88" className="w-full h-full -rotate-90">
+          {/* 背景环 */}
+          <circle cx="44" cy="44" r={r} fill="none" stroke="#1e293b" strokeWidth="8" />
+          {/* 进度环 */}
+          <circle
+            cx="44" cy="44" r={r} fill="none"
+            stroke={item.color}
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray={c}
+            strokeDashoffset={offset}
+            style={{
+              filter: `drop-shadow(0 0 6px ${item.color}44)`,
+              transition: 'stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-base font-bold text-white">{item.value}{item.unit}</span>
+        </div>
+        {/* 中心图标 */}
+        <span className="absolute -top-1 -right-1 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+          {item.icon}
+        </span>
+      </div>
+      <span className="text-xs text-slate-400">{item.label}</span>
+    </div>
+  )
+}
+
+export function ResourceGauge() {
+  return (
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 relative overflow-hidden">
+      <h3 className="text-slate-300 text-base font-semibold mb-6">资源负载</h3>
+      <div className="grid grid-cols-4 gap-2">
+        {gauges.map(g => (
+          <RingGauge key={g.label} item={g} />
+        ))}
+      </div>
+    </AnimatedCard>
+  )
+}

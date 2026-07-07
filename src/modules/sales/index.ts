@@ -1,5 +1,7 @@
 export { useSalesData } from './hooks'
 export { SalesFunnel } from './components/SalesFunnel'
 export { TopProducts } from './components/TopProducts'
+export { RevenueTrend } from './components/RevenueTrend'
+export { RegionalMap } from './components/RegionalMap'
 export { SalesPage } from './pages'
 export type { SalesOverview, SalesFunnelStage, TopProduct } from './types'

@@ -1,5 +1,7 @@
 export { useMonitoringData } from './hooks'
 export { RealtimeCard } from './components/RealtimeCard'
 export { AlertList } from './components/AlertList'
+export { ResourceGauge } from './components/ResourceGauge'
+export { EventTimeline } from './components/EventTimeline'
 export { MonitoringPage } from './pages'
 export type { MonitoringData, RealtimeMetric, AlertItem } from './types'

@@ -1,11 +1,18 @@
-import { useDashboardData, StatCard, SalesChart, StatBreakdown } from '@modules/dashboard'
+import {
+  useDashboardData,
+  StatCard,
+  SalesChart,
+  StatBreakdown,
+  TrafficSource,
+  RecentOrders,
+} from '@modules/dashboard'
 import { Skeleton } from '@shared/components/Skeleton'
 import { ErrorBoundary } from '@shared/components/ErrorBoundary'
+import { PageHeader } from '@shared/components/PageHeader'
 
 export default function App() {
   const { overview, stats, loading, error, refresh } = useDashboardData()
 
-  // 加载中（覆盖初始状态）
   if (loading || !overview) {
     return (
       <div className="space-y-6 max-w-[1600px] mx-auto">
@@ -16,10 +23,12 @@ export default function App() {
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Skeleton variant="chart" />
-          </div>
+          <div className="lg:col-span-2"><Skeleton variant="chart" /></div>
           <Skeleton variant="card" />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Skeleton variant="card" />
+          <Skeleton variant="chart" />
         </div>
       </div>
     )
@@ -29,8 +38,8 @@ export default function App() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-950/40 flex items-center justify-center">
-            <span className="text-2xl">⚠️</span>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-950/40 flex items-center justify-center text-2xl">
+            ⚠️
           </div>
           <p className="text-red-400 text-lg font-semibold mb-2">数据加载失败</p>
           <p className="text-slate-500 text-sm mb-4">{error}</p>
@@ -45,24 +54,20 @@ export default function App() {
     )
   }
 
-  const lastUpdateLabel = overview.updatedAt
-    ? `最后更新: ${new Date(overview.updatedAt).toLocaleTimeString('zh-CN')}`
-    : ''
-
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto">
-      {/* 页面标题行 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white">运营数据概览</h2>
-          <p className="text-slate-500 text-sm mt-1">实时监控核心业务指标</p>
-        </div>
-        {lastUpdateLabel && (
-          <span className="text-xs text-slate-500">{lastUpdateLabel}</span>
-        )}
-      </div>
+      <PageHeader
+        icon="📊"
+        title="运营数据概览"
+        subtitle="实时监控核心业务指标 · 数据驱动决策"
+        extra={
+          <span className="text-xs text-slate-500">
+            更新于 {new Date(overview.updatedAt).toLocaleTimeString('zh-CN')}
+          </span>
+        }
+      />
 
-      {/* 指标卡片区 — 交错入场 */}
+      {/* 指标卡片 */}
       <ErrorBoundary module="StatCards">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {overview.stats.map((item, i) => (
@@ -71,15 +76,21 @@ export default function App() {
         </div>
       </ErrorBoundary>
 
-      {/* 图表区 */}
-      <ErrorBoundary module="SalesChart">
+      {/* 图表 + 分解 */}
+      <ErrorBoundary module="MainSection">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <SalesChart data={overview.salesTrend} height={380} />
           </div>
-
-          {/* 右侧指标分解图 */}
           <StatBreakdown items={stats.length > 0 ? stats : overview.stats} />
+        </div>
+      </ErrorBoundary>
+
+      {/* 流量来源 + 最近订单 */}
+      <ErrorBoundary module="SecondarySection">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TrafficSource />
+          <RecentOrders />
         </div>
       </ErrorBoundary>
     </div>

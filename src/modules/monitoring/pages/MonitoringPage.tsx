@@ -1,5 +1,12 @@
-import { useMonitoringData, RealtimeCard, AlertList } from '@modules/monitoring'
+import {
+  useMonitoringData,
+  RealtimeCard,
+  AlertList,
+  ResourceGauge,
+  EventTimeline,
+} from '@modules/monitoring'
 import { Skeleton } from '@shared/components/Skeleton'
+import { PageHeader } from '@shared/components/PageHeader'
 
 export default function MonitoringPage() {
   const { overview, loading, error, refresh, ready } = useMonitoringData()
@@ -7,12 +14,17 @@ export default function MonitoringPage() {
   if (loading || !ready) {
     return (
       <div className="space-y-6 max-w-[1600px] mx-auto">
+        <Skeleton variant="text" lines={2} className="max-w-sm" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} variant="card" />
           ))}
         </div>
         <Skeleton variant="chart" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Skeleton variant="card" />
+          <Skeleton variant="card" />
+        </div>
       </div>
     )
   }
@@ -38,24 +50,21 @@ export default function MonitoringPage() {
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto">
-      {/* 标题行 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white">系统监控</h2>
-          <p className="text-slate-500 text-sm mt-1">实时服务器与服务质量监控</p>
-        </div>
-        <div className="flex items-center gap-3">
-          {/* 在线状态 */}
+      <PageHeader
+        icon="🖥️"
+        title="系统监控"
+        subtitle="实时服务器与服务质量监控"
+        extra={
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow" />
             <span className="text-xs text-emerald-400 font-medium">
               运行中 · {overview.uptime}h
             </span>
           </div>
-        </div>
-      </div>
+        }
+      />
 
-      {/* 实时指标 */}
+      {/* 实时指标卡片 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {overview.metrics.map((item, i) => (
           <RealtimeCard key={item.id} item={item} index={i} />
@@ -64,6 +73,12 @@ export default function MonitoringPage() {
 
       {/* 告警列表 */}
       <AlertList alerts={overview.alerts} />
+
+      {/* 资源负载 + 运维事件 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ResourceGauge />
+        <EventTimeline />
+      </div>
     </div>
   )
 }
