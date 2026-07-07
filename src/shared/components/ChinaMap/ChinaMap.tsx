@@ -157,9 +157,9 @@ export function ChinaMap() {
       </div>
 
       {ready ? (
-        <div ref={chartRef} style={{ width: '100%', height: 340 }} />
+        <div ref={chartRef} style={{ width: '100%', height: 400 }} />
       ) : (
-        <div className="flex items-center justify-center h-[340px]">
+        <div className="flex items-center justify-center h-[400px]">
           <div className="w-6 h-6 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin" />
         </div>
       )}

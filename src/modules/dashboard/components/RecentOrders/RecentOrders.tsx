@@ -26,26 +26,19 @@ const allOrders: Order[] = [
   { id: '#8917', customer: '成都云链科技', amount: 189000, status: 'cancelled', time: '13:42' },
   { id: '#8916', customer: '广州智慧城市', amount: 312000, status: 'completed', time: '13:30' },
   { id: '#8915', customer: '武汉东湖数据', amount: 84500, status: 'completed', time: '13:12' },
-  { id: '#8914', customer: '南京智造研究院', amount: 156000, status: 'pending', time: '12:55' },
-  { id: '#8913', customer: '西安航天信息', amount: 278000, status: 'completed', time: '12:38' },
-  { id: '#8912', customer: '重庆两江新区', amount: 93000, status: 'completed', time: '12:20' },
-  { id: '#8911', customer: '天津滨海数据港', amount: 145000, status: 'completed', time: '11:58' },
-  { id: '#8910', customer: '苏州工业园区', amount: 267000, status: 'pending', time: '11:42' },
 ]
 
 export function RecentOrders() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [featuredIdx, setFeaturedIdx] = useState(0)
 
-  // 每 4 秒切换置顶高亮订单
   useEffect(() => {
     const timer = setInterval(() => {
       setFeaturedIdx(prev => (prev + 1) % allOrders.length)
-    }, 4000)
+    }, 3500)
     return () => clearInterval(timer)
   }, [])
 
-  // 自动滚动
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
@@ -53,7 +46,7 @@ export function RecentOrders() {
     let pos = 0
     function step() {
       if (!el) return
-      pos += 0.35
+      pos += 0.55
       if (pos >= el.scrollHeight / 2) pos = 0
       el.scrollTop = pos
       id = requestAnimationFrame(step)
@@ -69,8 +62,8 @@ export function RecentOrders() {
   const featured = allOrders[featuredIdx]
 
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3 flex flex-col h-full overflow-hidden">
-      {/* 标题 */}
+    <div style={{ height: 400 }}>
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3 flex flex-col h-full">
       <div className="flex items-center justify-between mb-2 shrink-0">
         <h3 className="text-slate-300 text-xs font-semibold">最近订单</h3>
         <div className="flex items-center gap-1.5">
@@ -79,8 +72,8 @@ export function RecentOrders() {
         </div>
       </div>
 
-      {/* 置顶高亮订单 — 动态切换 */}
-      <div className="mb-1.5 p-2 rounded-lg bg-gradient-to-r from-slate-800/60 to-slate-800/20 border border-slate-700/40 shrink-0 transition-all duration-500">
+      {/* 置顶高亮 */}
+      <div className="mb-2 p-2 rounded-lg bg-gradient-to-r from-slate-800/60 to-slate-800/20 border border-slate-700/40 shrink-0 transition-all duration-500">
         <div className="flex items-center justify-between mb-0.5">
           <span className="text-[9px] text-cyan-400 font-semibold">🔔 最新大单</span>
           <span className="text-[9px] text-slate-500">{featured.time}</span>
@@ -98,14 +91,14 @@ export function RecentOrders() {
       <div
         ref={scrollRef}
         className="flex-1 overflow-hidden"
-        style={{ maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)' }}
+        style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
       >
         {[...allOrders, ...allOrders].map((order, i) => {
           const s = statusMap[order.status]
           return (
             <div
               key={`${order.id}-${i}`}
-              className="flex items-center gap-1.5 py-1 border-b border-slate-800/30 last:border-0 hover:bg-slate-800/20 transition-colors rounded px-1 -mx-1"
+              className="flex items-center gap-1.5 py-1.5 border-b border-slate-800/30 last:border-0 hover:bg-slate-800/20 transition-colors rounded px-1 -mx-1"
             >
               <span className="text-[9px] text-slate-500 font-mono w-8 shrink-0">{order.id}</span>
               <span className="text-[9px] text-slate-300 flex-1 truncate">{order.customer}</span>
@@ -118,5 +111,6 @@ export function RecentOrders() {
         })}
       </div>
     </AnimatedCard>
+    </div>
   )
 }
