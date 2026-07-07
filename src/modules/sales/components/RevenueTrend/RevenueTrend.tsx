@@ -89,7 +89,7 @@ export function RevenueTrend({ height = 340 }: { height?: number }) {
   useEffect(() => () => { instanceRef.current?.dispose(); instanceRef.current = null }, [])
 
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 lg:col-span-3">
+    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-6 lg:col-span-3">
       <h3 className="text-slate-300 text-base font-semibold mb-4">收入趋势（今年 vs 去年）</h3>
       <div ref={chartRef} style={{ width: '100%', height }} />
     </AnimatedCard>

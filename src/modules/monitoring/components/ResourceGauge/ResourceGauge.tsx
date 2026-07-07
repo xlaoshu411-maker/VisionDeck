@@ -29,7 +29,7 @@ function RingGauge({ item }: { item: GaugeItem }) {
     <div className="flex flex-col items-center group">
       <div className="relative w-16 h-16 mb-1">
         <svg viewBox="0 0 88 88" className="w-full h-full -rotate-90">
-          <circle cx="44" cy="44" r={r} fill="none" stroke="#1e293b" strokeWidth="10" />
+          <circle cx="44" cy="44" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
           <circle cx="44" cy="44" r={r} fill="none" stroke={item.color} strokeWidth="10"
             strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset}
             style={{ filter: `drop-shadow(0 0 4px ${item.color}44)`, transition: 'stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1)' }} />
@@ -45,7 +45,7 @@ function RingGauge({ item }: { item: GaugeItem }) {
 
 export function ResourceGauge() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4 relative overflow-hidden">
+    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4 relative overflow-hidden">
       <h3 className="text-slate-300 text-sm font-semibold mb-3">资源负载</h3>
       <div className="grid grid-cols-4 gap-1">
         {gauges.map(g => (

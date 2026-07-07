@@ -48,7 +48,7 @@ function formatValue(item: StatItem): string {
 export function StatBreakdown({ items }: StatBreakdownProps) {
   if (items.length === 0) {
     return (
-      <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3">
+      <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3">
         <h3 className="text-slate-300 text-sm font-semibold mb-2">指标分解</h3>
         <p className="text-slate-500 text-xs text-center py-4">暂无数据</p>
       </AnimatedCard>
@@ -56,7 +56,7 @@ export function StatBreakdown({ items }: StatBreakdownProps) {
   }
 
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3">
+    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3">
       <h3 className="text-slate-300 text-sm font-semibold mb-2">指标分解</h3>
       <div className="space-y-3">
         {items.map((item, i) => (

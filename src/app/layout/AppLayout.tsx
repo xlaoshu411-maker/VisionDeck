@@ -17,9 +17,9 @@ export function AppLayout() {
       <AnimatedBackground />
 
       {/* 侧边导航 */}
-      <aside className="w-48 shrink-0 border-r border-slate-800/40 bg-slate-950/40 backdrop-blur-sm flex flex-col relative z-10">
+      <aside className="w-48 shrink-0 border-r border-white/[0.05] bg-black/20 backdrop-blur-xl flex flex-col relative z-10">
         {/* Logo 区域 */}
-        <div className="h-12 flex items-center px-4 border-b border-slate-800/40">
+        <div className="h-12 flex items-center px-4 border-b border-white/[0.05]">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white shadow-lg shadow-cyan-500/25">
               V
@@ -43,8 +43,8 @@ export function AppLayout() {
                 className={() =>
                   `flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-all duration-200 group ${
                     isActive
-                      ? 'bg-gradient-to-r from-slate-800/90 to-slate-800/60 text-white shadow-sm border border-slate-700/40'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40 border border-transparent'
+                      ? 'bg-white/[0.08] backdrop-blur-md text-white shadow-sm border border-white/[0.08]'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04] border border-transparent'
                   }`
                 }
               >
@@ -62,7 +62,7 @@ export function AppLayout() {
         </nav>
 
         {/* 底部 */}
-        <div className="px-4 py-3 border-t border-slate-800/40">
+        <div className="px-4 py-3 border-t border-white/[0.05]">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">
               👤

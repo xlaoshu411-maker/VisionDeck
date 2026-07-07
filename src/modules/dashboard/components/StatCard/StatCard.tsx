@@ -23,7 +23,7 @@ export function StatCard({ item, index }: StatCardProps) {
   return (
     <AnimatedCard
       index={index}
-      className="relative overflow-hidden rounded-xl bg-slate-900/80 border border-slate-800/60 p-3 hover:border-slate-700/60 transition-all duration-300 group"
+      className="relative overflow-hidden rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-3 hover:border-slate-700/60 transition-all duration-300 group"
     >
       {/* 头部 */}
       <div className="flex items-center justify-between mb-1.5">

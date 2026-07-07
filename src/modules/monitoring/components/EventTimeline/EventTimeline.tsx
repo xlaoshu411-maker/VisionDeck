@@ -34,14 +34,14 @@ const typeColors: Record<TimelineEvent['type'], string> = {
 
 export function EventTimeline() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4">
+    <AnimatedCard className="rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] p-4">
       <h3 className="text-slate-300 text-sm font-semibold mb-3">运维事件</h3>
       <div className="relative">
         <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-slate-700 via-slate-700/50 to-transparent" />
         <div className="space-y-2">
           {events.map((evt, i) => (
             <div key={i} className="flex gap-3 relative group">
-              <div className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-2 border-slate-800 bg-slate-900 text-xs"
+              <div className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-2 border-white/[0.06] bg-white/[0.03] text-xs"
                 style={{ boxShadow: `0 0 6px ${typeColors[evt.type]}33` }}>
                 {typeIcons[evt.type]}
               </div>
