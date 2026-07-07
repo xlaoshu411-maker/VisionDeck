@@ -23,8 +23,10 @@ async function bootstrap(): Promise<void> {
     const { startMockWorker } = await import('@infra/mock')
     try {
       await startMockWorker()
+      console.log('✅ [MSW] Mock Service Worker 已启动 — API 请求将被拦截')
       logger.info('MSW started successfully')
     } catch (err) {
+      console.error('❌ [MSW] Mock Service Worker 启动失败 — 请检查 public/mockServiceWorker.js', err)
       logger.warn('MSW start failed — falling back to real API', err)
     }
   }

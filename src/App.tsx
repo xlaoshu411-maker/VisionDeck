@@ -4,28 +4,32 @@ import { formatPercent } from '@shared/utils'
 import { ErrorBoundary } from '@shared/components/ErrorBoundary'
 
 export default function App() {
-  const { overview, stats, loading, error, ready } = useDashboardData()
+  const { overview, stats, loading, error, refresh } = useDashboardData()
+
+  // 加载中（覆盖初始状态和后续加载）
+  if (loading || !overview) {
+    return <Loading text="正在加载数据大屏..." fullScreen />
+  }
 
   // 错误状态
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <p className="text-red-400 text-lg mb-2">数据加载失败</p>
-          <p className="text-slate-500 text-sm">{error}</p>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-950/40 flex items-center justify-center">
+            <span className="text-2xl">⚠️</span>
+          </div>
+          <p className="text-red-400 text-lg font-semibold mb-2">数据加载失败</p>
+          <p className="text-slate-500 text-sm mb-4">{error}</p>
+          <button
+            onClick={refresh}
+            className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 transition-colors text-sm"
+          >
+            重新加载
+          </button>
         </div>
       </div>
     )
-  }
-
-  // 加载状态
-  if (!ready && loading) {
-    return <Loading text="正在加载数据大屏..." />
-  }
-
-  // 数据为空
-  if (!overview) {
-    return null
   }
 
   const lastUpdateLabel = overview.updatedAt
@@ -76,7 +80,9 @@ export default function App() {
                       <span className="text-white text-sm font-mono-tabular">
                         {s.value.toLocaleString('zh-CN')}
                       </span>
-                      <span className={`ml-2 text-xs ${s.trend >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                      <span
+                        className={`ml-2 text-xs ${s.trend >= 0 ? 'text-emerald-400' : 'text-red-400'}`}
+                      >
                         {formatPercent(s.trend)}
                       </span>
                     </div>
