@@ -12,7 +12,7 @@ export function AppLayout() {
   const location = useLocation()
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen flex relative">
       {/* 动态科技感背景 */}
       <AnimatedBackground />
 
