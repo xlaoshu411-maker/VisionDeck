@@ -15,26 +15,21 @@ export function useDashboardData() {
   const error = useDashboardStore(s => s.error)
   const lastUpdated = useDashboardStore(s => s.lastUpdated)
   const loadOverview = useDashboardStore(s => s.loadOverview)
+  const loadStats = useDashboardStore(s => s.loadStats)
   const refresh = useDashboardStore(s => s.refresh)
 
   useEffect(() => {
     loadOverview()
-  }, [loadOverview])
+    loadStats()
+  }, [loadOverview, loadStats])
 
   return {
-    /** 概览数据（含 stats + salesTrend） */
     overview,
-    /** 纯指标卡片（从 stats 接口获取） */
     stats,
-    /** 是否加载中 */
     loading,
-    /** 错误信息 */
     error,
-    /** 最后更新时间戳 */
     lastUpdated,
-    /** 刷新数据 */
     refresh,
-    /** 数据是否就绪 */
     ready: overview !== null && !loading,
   }
 }

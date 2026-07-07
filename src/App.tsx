@@ -1,9 +1,6 @@
-import { useDashboardData, StatCard, SalesChart } from '@modules/dashboard'
+import { useDashboardData, StatCard, SalesChart, StatBreakdown } from '@modules/dashboard'
 import { Skeleton } from '@shared/components/Skeleton'
-import { formatPercent } from '@shared/utils'
 import { ErrorBoundary } from '@shared/components/ErrorBoundary'
-import { CountUp } from '@shared/components/CountUp'
-import { AnimatedCard } from '@shared/components/AnimatedCard'
 
 export default function App() {
   const { overview, stats, loading, error, refresh } = useDashboardData()
@@ -81,34 +78,8 @@ export default function App() {
             <SalesChart data={overview.salesTrend} height={380} />
           </div>
 
-          {/* 右侧明细面板 */}
-          <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
-            <h3 className="text-slate-300 text-base font-semibold mb-4">数据明细</h3>
-            {stats.length > 0 ? (
-              <ul className="space-y-3">
-                {stats.map(s => (
-                  <li
-                    key={s.id}
-                    className="flex items-center justify-between py-2 border-b border-slate-800/60 last:border-0"
-                  >
-                    <span className="text-slate-400 text-sm">{s.label}</span>
-                    <div className="text-right">
-                      <span className="text-white text-sm font-mono-tabular">
-                        <CountUp end={s.value} duration={1000} formatter={v => v.toLocaleString('zh-CN')} />
-                      </span>
-                      <span
-                        className={`ml-2 text-xs ${s.trend >= 0 ? 'text-emerald-400' : 'text-red-400'}`}
-                      >
-                        {formatPercent(s.trend)}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-slate-500 text-sm">暂无明细数据</p>
-            )}
-          </AnimatedCard>
+          {/* 右侧指标分解图 */}
+          <StatBreakdown items={stats.length > 0 ? stats : overview.stats} />
         </div>
       </ErrorBoundary>
     </div>

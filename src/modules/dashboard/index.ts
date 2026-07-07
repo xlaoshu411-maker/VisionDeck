@@ -9,4 +9,5 @@
 export { useDashboardData } from './hooks'
 export { StatCard } from './components/StatCard'
 export { SalesChart } from './components/SalesChart'
+export { StatBreakdown } from './components/StatBreakdown'
 export type { DashboardData, StatItem, SalesTrend } from './types'
