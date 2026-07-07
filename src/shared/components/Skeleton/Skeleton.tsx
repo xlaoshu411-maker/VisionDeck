@@ -32,30 +32,25 @@ export function Skeleton({ variant = 'card', lines = 3, className = '' }: Skelet
 
   if (variant === 'chart') {
     return (
-      <div className={`rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 ${className}`}>
-        <SkeletonBar className="h-5 w-28 mb-6" />
-        <div className="flex items-end gap-4 h-48">
+      <div className={`rounded-xl bg-slate-900/80 border border-slate-800/60 p-4 ${className}`}>
+        <SkeletonBar className="h-4 w-24 mb-3" />
+        <div className="flex items-end gap-3 h-32">
           {Array.from({ length: 7 }).map((_, i) => (
-            <SkeletonBar
-              key={i}
-              className="flex-1 rounded-t"
-              style={{ height: `${30 + Math.random() * 70}%` }}
-            />
+            <SkeletonBar key={i} className="flex-1 rounded-t" style={{ height: `${30 + Math.random() * 70}%` }} />
           ))}
         </div>
       </div>
     )
   }
 
-  // card
   return (
-    <div className={`rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 ${className}`}>
-      <div className="flex items-center justify-between mb-4">
-        <SkeletonBar className="h-4 w-16" />
-        <SkeletonBar className="h-4 w-10" />
+    <div className={`rounded-xl bg-slate-900/80 border border-slate-800/60 p-3 ${className}`}>
+      <div className="flex items-center justify-between mb-2">
+        <SkeletonBar className="h-3 w-12" />
+        <SkeletonBar className="h-3 w-8" />
       </div>
-      <SkeletonBar className="h-9 w-28 mb-2" />
-      <SkeletonBar className="h-3 w-12" />
+      <SkeletonBar className="h-6 w-20 mb-1" />
+      <SkeletonBar className="h-2 w-10" />
     </div>
   )
 }

@@ -48,18 +48,17 @@ function formatValue(item: StatItem): string {
 export function StatBreakdown({ items }: StatBreakdownProps) {
   if (items.length === 0) {
     return (
-      <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
-        <h3 className="text-slate-300 text-base font-semibold mb-4">指标分解</h3>
-        <p className="text-slate-500 text-sm text-center py-8">暂无数据</p>
+      <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3">
+        <h3 className="text-slate-300 text-sm font-semibold mb-2">指标分解</h3>
+        <p className="text-slate-500 text-xs text-center py-4">暂无数据</p>
       </AnimatedCard>
     )
   }
 
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
-      <h3 className="text-slate-300 text-base font-semibold mb-5">指标分解</h3>
-
-      <div className="space-y-6">
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-3">
+      <h3 className="text-slate-300 text-sm font-semibold mb-2">指标分解</h3>
+      <div className="space-y-3">
         {items.map((item, i) => (
           <BarItem key={item.id} item={item} index={i} />
         ))}
@@ -105,68 +104,48 @@ function BarItem({ item, index }: { item: StatItem; index: number }) {
   return (
     <div className="group">
       {/* 标签行 + 当前值 */}
-      <div className="flex items-baseline justify-between mb-2">
-        <div className="flex items-center gap-2">
-          {/* 颜色指示点 */}
-          <span
-            className="w-2 h-2 rounded-full shrink-0"
-            style={{ backgroundColor: cs.dot }}
-          />
-          <span className="text-sm text-slate-300 font-medium group-hover:text-white transition-colors">
-            {item.label}
-          </span>
+      <div className="flex items-baseline justify-between mb-1">
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: cs.dot }} />
+          <span className="text-xs text-slate-300 font-medium">{item.label}</span>
         </div>
-        <div className="flex items-baseline gap-2">
-          <span className="text-base font-bold text-white font-mono-tabular">
-            <CountUp end={item.value} duration={1000} formatter={() => formatValue(item)} />
+        <div className="flex items-baseline gap-1">
+          <span className="text-sm font-bold text-white font-mono-tabular">
+            <CountUp end={item.value} duration={800} formatter={() => formatValue(item)} />
           </span>
-          <span className="text-xs text-slate-500">{item.unit}</span>
+          <span className="text-[10px] text-slate-500">{item.unit}</span>
         </div>
       </div>
 
-      {/* 条形图 + 目标标记 */}
-      <div className="relative h-4 mb-2">
-        {/* 轨道 */}
+      {/* 条形图 */}
+      <div className="relative h-3 mb-1">
         <div className="absolute inset-0 bg-slate-800/80 rounded-full overflow-hidden">
-          {/* 实际值 bar */}
-          <div
-            ref={barRef}
-            className="h-full rounded-full"
+          <div ref={barRef} className="h-full rounded-full"
             style={{
               width: '0%',
               background: `linear-gradient(90deg, ${cs.bar[0]}, ${cs.bar[1]})`,
-              boxShadow: `0 0 10px ${cs.glow}`,
-              transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-              transitionDelay: `${index * 120}ms`,
+              boxShadow: `0 0 6px ${cs.glow}`,
+              transition: 'width 1s cubic-bezier(0.16, 1, 0.3, 1)',
+              transitionDelay: `${index * 100}ms`,
             }}
           />
-          {/* 目标值刻度线 */}
-          <div
-            className="absolute top-0 bottom-0 w-px bg-white/20"
-            style={{ left: '100%' }}
-          />
+          <div className="absolute top-0 bottom-0 w-px bg-white/20" style={{ left: '100%' }} />
         </div>
-        {/* 跟随光点 */}
-        <div
-          ref={dotRef}
-          className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-slate-950 shadow-lg transition-all duration-1000 ease-out"
+        <div ref={dotRef}
+          className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border border-slate-950 shadow-lg transition-all duration-1000 ease-out"
           style={{
             left: '0%',
             backgroundColor: cs.dot,
-            boxShadow: `0 0 8px ${cs.glow}`,
-            transitionDelay: `${index * 120}ms`,
+            boxShadow: `0 0 6px ${cs.glow}`,
+            transitionDelay: `${index * 100}ms`,
           }}
         />
       </div>
 
-      {/* 底部信息行 */}
-      <div className="flex justify-between text-[11px]">
-        <span className="text-slate-600">
-          达成率 <span className="text-slate-400 font-mono">{Math.round(ratio * 100)}%</span>
-        </span>
-        <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${trendColor}`}>
-          {trendSymbol} {Math.abs(item.trend)}%
-        </span>
+      {/* 底部信息 */}
+      <div className="flex justify-between text-[10px]">
+        <span className="text-slate-600">达成率 <span className="text-slate-400 font-mono">{Math.round(ratio * 100)}%</span></span>
+        <span className={`px-1 py-0.5 rounded text-[9px] font-semibold ${trendColor}`}>{trendSymbol} {Math.abs(item.trend)}%</span>
       </div>
     </div>
   )

@@ -27,50 +27,27 @@ const mockOrders: Order[] = [
 
 export function RecentOrders() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 relative overflow-hidden">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-slate-300 text-base font-semibold">最近订单</h3>
-        <span className="text-xs text-cyan-400 hover:text-cyan-300 cursor-pointer transition-colors">
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4 relative overflow-hidden">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-slate-300 text-sm font-semibold">最近订单</h3>
+        <span className="text-[10px] text-cyan-400 hover:text-cyan-300 cursor-pointer transition-colors">
           查看全部 →
         </span>
       </div>
 
       <div className="space-y-0">
-        {mockOrders.map((order, i) => {
+        {mockOrders.map(order => {
           const s = statusMap[order.status]
           return (
             <div
               key={order.id}
-              className="flex items-center gap-4 py-3 border-b border-slate-800/40 last:border-0 hover:bg-slate-800/30 transition-colors rounded px-2 -mx-2"
-              style={{
-                animationDelay: `${i * 80}ms`,
-                animationFillMode: 'backwards',
-              }}
+              className="flex items-center gap-3 py-1.5 border-b border-slate-800/40 last:border-0 hover:bg-slate-800/30 transition-colors rounded px-1.5 -mx-1.5"
             >
-              {/* 订单号 */}
-              <span className="text-xs text-slate-500 font-mono w-20 shrink-0">
-                {order.id}
-              </span>
-
-              {/* 客户 */}
-              <span className="text-sm text-slate-300 flex-1 truncate">
-                {order.customer}
-              </span>
-
-              {/* 金额 */}
-              <span className="text-sm text-white font-mono-tabular font-medium w-24 text-right">
-                ¥{order.amount.toLocaleString()}
-              </span>
-
-              {/* 状态 */}
-              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${s.cls} w-14 text-center`}>
-                {s.label}
-              </span>
-
-              {/* 时间 */}
-              <span className="text-[10px] text-slate-600 w-16 text-right">
-                {order.time}
-              </span>
+              <span className="text-[10px] text-slate-500 font-mono w-18 shrink-0">{order.id}</span>
+              <span className="text-xs text-slate-300 flex-1 truncate">{order.customer}</span>
+              <span className="text-xs text-white font-mono-tabular font-medium w-20 text-right">¥{order.amount.toLocaleString()}</span>
+              <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded border ${s.cls} w-12 text-center`}>{s.label}</span>
+              <span className="text-[9px] text-slate-600 w-14 text-right">{order.time}</span>
             </div>
           )
         })}

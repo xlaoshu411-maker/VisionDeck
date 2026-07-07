@@ -19,22 +19,22 @@ const mockTraffic: TrafficItem[] = [
 
 export function TrafficSource() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 relative overflow-hidden">
-      <h3 className="text-slate-300 text-base font-semibold mb-4">流量来源</h3>
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4 relative overflow-hidden">
+      <h3 className="text-slate-300 text-sm font-semibold mb-3">流量来源</h3>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         {mockTraffic.map((item, i) => (
           <div key={item.name} className="group">
-            <div className="flex items-center justify-between mb-1">
-              <span className="flex items-center gap-2 text-sm text-slate-400">
-                <span>{item.icon}</span>
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                <span className="text-sm">{item.icon}</span>
                 {item.name}
               </span>
-              <span className="text-sm text-white font-mono-tabular font-medium">
+              <span className="text-xs text-white font-mono-tabular font-medium">
                 {item.value}%
               </span>
             </div>
-            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full animate-bar-grow"
                 style={{
@@ -50,8 +50,8 @@ export function TrafficSource() {
       </div>
 
       {/* 装饰光晕 */}
-      <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%)' }} />
+      <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full blur-2xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)' }} />
     </AnimatedCard>
   )
 }

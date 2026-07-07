@@ -34,35 +34,23 @@ const typeColors: Record<TimelineEvent['type'], string> = {
 
 export function EventTimeline() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
-      <h3 className="text-slate-300 text-base font-semibold mb-5">运维事件</h3>
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4">
+      <h3 className="text-slate-300 text-sm font-semibold mb-3">运维事件</h3>
       <div className="relative">
-        {/* 竖线 */}
-        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-gradient-to-b from-slate-700 via-slate-700/50 to-transparent" />
-
-        <div className="space-y-4">
+        <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gradient-to-b from-slate-700 via-slate-700/50 to-transparent" />
+        <div className="space-y-2">
           {events.map((evt, i) => (
-            <div key={i} className="flex gap-4 relative group">
-              {/* 节点 */}
-              <div
-                className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center shrink-0 border-2 border-slate-800 bg-slate-900 text-sm"
-                style={{
-                  boxShadow: `0 0 10px ${typeColors[evt.type]}33`,
-                  transition: 'box-shadow 0.3s',
-                }}
-              >
+            <div key={i} className="flex gap-3 relative group">
+              <div className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-2 border-slate-800 bg-slate-900 text-xs"
+                style={{ boxShadow: `0 0 6px ${typeColors[evt.type]}33` }}>
                 {typeIcons[evt.type]}
               </div>
-
-              {/* 内容 */}
-              <div className="flex-1 min-w-0 pb-1">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-sm text-slate-200 font-medium group-hover:text-white transition-colors">
-                    {evt.action}
-                  </span>
-                  <span className="text-[10px] text-slate-600 whitespace-nowrap">{evt.time}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline justify-between gap-1">
+                  <span className="text-xs text-slate-200 font-medium">{evt.action}</span>
+                  <span className="text-[9px] text-slate-600 whitespace-nowrap">{evt.time}</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{evt.detail}</p>
+                <p className="text-[10px] text-slate-500 leading-relaxed">{evt.detail}</p>
               </div>
             </div>
           ))}

@@ -23,29 +23,26 @@ export function StatCard({ item, index }: StatCardProps) {
   return (
     <AnimatedCard
       index={index}
-      className="relative overflow-hidden rounded-xl bg-slate-900/80 border border-slate-800/60 p-5 hover:border-slate-700/60 transition-all duration-300 group"
+      className="relative overflow-hidden rounded-xl bg-slate-900/80 border border-slate-800/60 p-3 hover:border-slate-700/60 transition-all duration-300 group"
     >
-      {/* 顶部光效 */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
       {/* 头部 */}
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-slate-400 text-xs font-medium tracking-wide uppercase">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-slate-400 text-[10px] font-medium tracking-wide uppercase">
           {item.label}
         </span>
         <span
-          className={`text-[11px] font-semibold px-1.5 py-0.5 rounded ${trendBg} ${trendColor} transition-colors`}
+          className={`text-[10px] font-semibold px-1 py-0.5 rounded ${trendBg} ${trendColor} transition-colors`}
         >
           {trendArrow} {Math.abs(item.trend)}%
         </span>
       </div>
 
       {/* 数值 — 带动画 */}
-      <div className="text-3xl font-bold text-white tracking-tight font-mono-tabular">
+      <div className="text-2xl font-bold text-white tracking-tight font-mono-tabular">
         {item.unit === '%' ? (
           <>
             <CountUp end={item.value} decimals={2} duration={1300} />
-            <span className="text-lg text-slate-500 ml-0.5">{item.unit}</span>
+            <span className="text-sm text-slate-500 ml-0.5">{item.unit}</span>
           </>
         ) : (
           <>
@@ -58,7 +55,7 @@ export function StatCard({ item, index }: StatCardProps) {
                 return v.toLocaleString('zh-CN')
               }}
             />
-            <span className="text-lg text-slate-500 ml-1">{item.unit}</span>
+            <span className="text-sm text-slate-500 ml-1">{item.unit}</span>
           </>
         )}
       </div>

@@ -27,42 +27,27 @@ function RingGauge({ item }: { item: GaugeItem }) {
 
   return (
     <div className="flex flex-col items-center group">
-      <div className="relative w-24 h-24 mb-2">
+      <div className="relative w-16 h-16 mb-1">
         <svg viewBox="0 0 88 88" className="w-full h-full -rotate-90">
-          {/* 背景环 */}
-          <circle cx="44" cy="44" r={r} fill="none" stroke="#1e293b" strokeWidth="8" />
-          {/* 进度环 */}
-          <circle
-            cx="44" cy="44" r={r} fill="none"
-            stroke={item.color}
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeDasharray={c}
-            strokeDashoffset={offset}
-            style={{
-              filter: `drop-shadow(0 0 6px ${item.color}44)`,
-              transition: 'stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          />
+          <circle cx="44" cy="44" r={r} fill="none" stroke="#1e293b" strokeWidth="10" />
+          <circle cx="44" cy="44" r={r} fill="none" stroke={item.color} strokeWidth="10"
+            strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset}
+            style={{ filter: `drop-shadow(0 0 4px ${item.color}44)`, transition: 'stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1)' }} />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-base font-bold text-white">{item.value}{item.unit}</span>
+          <span className="text-xs font-bold text-white">{item.value}{item.unit}</span>
         </div>
-        {/* 中心图标 */}
-        <span className="absolute -top-1 -right-1 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-          {item.icon}
-        </span>
       </div>
-      <span className="text-xs text-slate-400">{item.label}</span>
+      <span className="text-[10px] text-slate-400">{item.label}</span>
     </div>
   )
 }
 
 export function ResourceGauge() {
   return (
-    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6 relative overflow-hidden">
-      <h3 className="text-slate-300 text-base font-semibold mb-6">资源负载</h3>
-      <div className="grid grid-cols-4 gap-2">
+    <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-4 relative overflow-hidden">
+      <h3 className="text-slate-300 text-sm font-semibold mb-3">资源负载</h3>
+      <div className="grid grid-cols-4 gap-1">
         {gauges.map(g => (
           <RingGauge key={g.label} item={g} />
         ))}
