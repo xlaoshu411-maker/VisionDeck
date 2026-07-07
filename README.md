@@ -18,23 +18,30 @@
 ## 📸 预览
 
 <p align="center">
-  <em>（运行 <code>npm run dev</code> 后访问对应路由查看完整动态效果）</em>
+  <em>星空背景 · 毛玻璃质感 · 实时数据可视化</em>
 </p>
 
 ### 运营概览 Dashboard
-> 4 KPI 卡片（数字滚动） + 销售趋势图 + 指标分解动画 + 中国地图 + 实时订单流
+> KPI 数字滚动卡片 + ECharts 销售趋势 + 指标分解动画 + 中国地图 + 实时订单流
 
-![Dashboard](screenshots/dashboard.png)
+<p align="center">
+  <img src="screenshots/1.png" alt="Dashboard" width="48%" />
+  <img src="screenshots/2.png" alt="Dashboard Detail" width="48%" />
+</p>
 
 ### 系统监控 Monitoring
-> 实时指标（脉冲灯） + 分级告警 + 环形资源仪表 + 运维事件时间线
+> 实时指标脉冲灯 + 分级告警列表 + SVG 环形仪表 + 运维事件时间线
 
-![Monitoring](screenshots/monitoring.png)
+<p align="center">
+  <img src="screenshots/3.png" alt="Monitoring" width="70%" />
+</p>
 
 ### 销售分析 Sales
-> 收入趋势对比 + 漏斗转化 + 热销排行 + KPI 卡片
+> 全年收入趋势对比 + ECharts 漏斗转化 + 热销 TOP5 排行榜 + 区域分布
 
-![Sales](screenshots/sales.png)
+<p align="center">
+  <img src="screenshots/4.png" alt="Sales" width="70%" />
+</p>
 
 ---
 
