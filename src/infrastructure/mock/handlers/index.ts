@@ -1,8 +1,5 @@
-/**
- * 所有 MSW handler 集中注册
- * 新增模块时在此导入对应 handlers
- */
-
 import { dashboardHandlers } from './dashboard'
+import { monitoringHandlers } from './monitoring'
+import { salesHandlers } from './sales'
 
-export const handlers = [...dashboardHandlers]
+export const handlers = [...dashboardHandlers, ...monitoringHandlers, ...salesHandlers]

@@ -1,17 +1,33 @@
 import { useDashboardData, StatCard, SalesChart } from '@modules/dashboard'
-import { Loading } from '@shared/components/Loading'
+import { Skeleton } from '@shared/components/Skeleton'
 import { formatPercent } from '@shared/utils'
 import { ErrorBoundary } from '@shared/components/ErrorBoundary'
+import { CountUp } from '@shared/components/CountUp'
+import { AnimatedCard } from '@shared/components/AnimatedCard'
 
 export default function App() {
   const { overview, stats, loading, error, refresh } = useDashboardData()
 
-  // 加载中（覆盖初始状态和后续加载）
+  // 加载中（覆盖初始状态）
   if (loading || !overview) {
-    return <Loading text="正在加载数据大屏..." fullScreen />
+    return (
+      <div className="space-y-6 max-w-[1600px] mx-auto">
+        <Skeleton variant="text" lines={2} className="max-w-sm" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} variant="card" />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <Skeleton variant="chart" />
+          </div>
+          <Skeleton variant="card" />
+        </div>
+      </div>
+    )
   }
 
-  // 错误状态
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -49,11 +65,11 @@ export default function App() {
         )}
       </div>
 
-      {/* 指标卡片区 */}
+      {/* 指标卡片区 — 交错入场 */}
       <ErrorBoundary module="StatCards">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {overview.stats.map(item => (
-            <StatCard key={item.id} item={item} />
+          {overview.stats.map((item, i) => (
+            <StatCard key={item.id} item={item} index={i} />
           ))}
         </div>
       </ErrorBoundary>
@@ -65,8 +81,8 @@ export default function App() {
             <SalesChart data={overview.salesTrend} height={380} />
           </div>
 
-          {/* 右侧辅助面板 */}
-          <div className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
+          {/* 右侧明细面板 */}
+          <AnimatedCard className="rounded-xl bg-slate-900/80 border border-slate-800/60 p-6">
             <h3 className="text-slate-300 text-base font-semibold mb-4">数据明细</h3>
             {stats.length > 0 ? (
               <ul className="space-y-3">
@@ -78,7 +94,7 @@ export default function App() {
                     <span className="text-slate-400 text-sm">{s.label}</span>
                     <div className="text-right">
                       <span className="text-white text-sm font-mono-tabular">
-                        {s.value.toLocaleString('zh-CN')}
+                        <CountUp end={s.value} duration={1000} formatter={v => v.toLocaleString('zh-CN')} />
                       </span>
                       <span
                         className={`ml-2 text-xs ${s.trend >= 0 ? 'text-emerald-400' : 'text-red-400'}`}
@@ -92,7 +108,7 @@ export default function App() {
             ) : (
               <p className="text-slate-500 text-sm">暂无明细数据</p>
             )}
-          </div>
+          </AnimatedCard>
         </div>
       </ErrorBoundary>
     </div>

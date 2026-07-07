@@ -1,0 +1,1 @@
+export { useSalesData } from './useSalesData'
